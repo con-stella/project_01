@@ -55,7 +55,7 @@ st.image("counsel_img.png",
          # caption="Welcome to the Q&A Chatbot", 
          use_column_width=True)
 
-st.write("포트폴리오에 관한 질문을 입력해보세요. \n 예: 주제가 어떻게 되나요?")
+st.write("포트폴리오에 관한 질문을 입력해보세요. \n (예: 주제가 어떻게 되나요?)")
 
 user_input = st.text_input("user", "")
 
