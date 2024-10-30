@@ -19,7 +19,7 @@ questions = [
 
 answers = [
     "딥보이스(TTS)를 활용한 심리상담 AI챗봇 시스템입니다.",
-    "다음 모델을 활용했습니다. \n [Speech to Text] Whisper  \n  [AI챗봇] 00000  \n  [Text to Speech] xTTS_v2",
+    "다음 모델을 활용했습니다.  \n  [Speech to Text] Whisper  \n  [AI챗봇] 00000  \n  [Text to Speech] xTTS_v2",
     "프로젝트 팀 구성은 다음과 같습니다. \n 팀장: 유재현 / 팀원: 한수연, 황지영",
     "2024-10-24 ~ 2024-11-18 동안 진행했습니다.",
     "팀장은 유재현입니다.",
