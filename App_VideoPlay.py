@@ -1,4 +1,8 @@
 import streamlit as st
+from ultralytics import YOLO
+import tempfile
+import cv2
+import os
 
 # 전체 레이아웃을 넓게 설정
 st.set_page_config(layout="wide")
@@ -29,7 +33,7 @@ with st.container():                            # with가 없으면 블럭 설�
         result_placeholder = st.empty()
         if "processed_video" in st.session_state and st.session_state["processed_video"] is not None:  # 사물 검출 완료된 비디오가 있으면
             result_placeholder.video(st.session_state["processed_video"])                              # 그 비디오를 플레이 해라
-        else:
+        else:                                                                                          # 높이 등은 직접 알아내서 적어줘야 한다
             result_placeholder.markdown(
                 """
                 <div style='width:100%; height:620px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
