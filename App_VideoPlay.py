@@ -140,6 +140,8 @@ if st.button("사물 검출 실행") and uploaded_file and model_file:
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)           # 사각형을 그림 
                 cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                                                                                    # 사각형의 label을 출력
+            st.write(f"Frame {frame_count}: {len(detections)} detections")
+
         else:
             # 검출 결과가 없을 때 로그 출력
             st.write(f"Frame {frame_count}: No detections")    # 검출이 안 되었으면 메세지 출력 
