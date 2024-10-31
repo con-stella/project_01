@@ -10,8 +10,12 @@ st.set_page_config(layout="wide")
 # 제목 설정
 st.title("프로젝트 제목 사물 검출 앱")
 
-# 모델 파일 업로드
+# 모델 파일 업로드 (조건문 제거)
 model_file = st.file_uploader("모델 파일을 업로드하세요", type=["pt"])
+uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
+
+
+# 모델 파일 업로드
 if model_file:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pt") as temp_model_file:
         temp_model_file.write(model_file.read())
@@ -19,8 +23,7 @@ if model_file:
     model = YOLO(model_path)
     st.success("모델이 성공적으로 로드되었습니다.")
 
-# 비디오 파일 업로드
-uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
+
 
 # 전체 레이아웃을 컨테이너로 감싸기
 with st.container():  # 코드 가독성을 높이기 위해 컨테이너로 묶음
