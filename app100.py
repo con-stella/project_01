@@ -90,6 +90,7 @@ if st.button("사물 검출 실행") and uploaded_file and model_file:
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
 
+    frame_count = 0    
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
