@@ -4,16 +4,17 @@ import tempfile
 import cv2
 import os
 
-# 전체 레이아웃을 넓게 설정
+# 페이지 구성
 st.set_page_config(layout="wide")
-
-# 제목 설정
 st.title("비디오 사물 검출 앱")
 
-
 # 모델 파일 업로드
+if "model_file" not in st.session_state:
+    st.session_state["model_file"] = None
+
 model_file = st.file_uploader("모델 파일을 업로드하세요", type=["pt"])
 if model_file:
+    st.session_state["model_file"] = model_file  # 상태 저장
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pt") as temp_model_file:
         temp_model_file.write(model_file.read())
         model_path = temp_model_file.name
