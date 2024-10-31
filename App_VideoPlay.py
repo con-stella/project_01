@@ -78,6 +78,30 @@ with st.container():                            # with가 없으면 블럭 설�
 
 
 
+# 버튼 스타일 설정
+st.markdown(
+    """
+    <style>
+    .stButton > button {
+        background-color: #4d4d4d;
+        color: #ffffff;
+        font-weight: bold;
+        padding: 12px 24px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .stButton > button:hover {
+        background-color: #333333;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 # 사물 검출 버튼 클릭 이벤트 처리
 if st.button("사물 검출 실행") and uploaded_file and model_file:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_output:
