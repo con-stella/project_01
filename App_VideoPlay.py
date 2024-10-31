@@ -45,31 +45,32 @@ with st.container():                            # with가 없으면 블럭 설�
 
 
 
-# 사물 검출 버튼 추가
-if st.button("사물 검출 실행"):                                    # 이 버튼을 누르면 
-    if uploaded_file is not None:
-        st.session_state["processed_video"] = uploaded_file
-        st.success("사물 검출이 완료되어 오른쪽에 표시됩니다.")
-    else:
-        st.warning("사물 검출을 실행하려면 비디오 파일을 업로드하세요.")
+# # 사물 검출 버튼 추가
+# if st.button("사물 검출 실행"):                                    # 이 버튼을 누르면 
+#     if uploaded_file is not None:
+#         st.session_state["processed_video"] = uploaded_file
+#         st.success("사물 검출이 완료되어 오른쪽에 표시됩니다.")
+#     else:
+#         st.warning("사물 검출을 실행하려면 비디오 파일을 업로드하세요.")
 
 
 
 # 사물 검출 버튼 클릭 이벤트 처리
 if st.button("사물 검출 실행") and uploaded_file and model_file:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_output:
-        output_path = temp_output.name
+        output_path = temp_output.name                    # 임시 비디오 파일을 생성 / output_path 에 저장
 
     with tempfile.NamedTemporaryFile(delete=False) as temp_input:
         temp_input.write(uploaded_file.read())
-        temp_input_path = temp_input.name
-
-    cap = cv2.VideoCapture(temp_input_path)
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    fps = cap.get(cv2.CAP_PROP_FPS)
-    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        temp_input_path = temp_input.name                  # 또 다른 임시 파일을 생성하여 업로드된 비디오를 temp_input_path에 저장
+                                                           
+    cap = cv2.VideoCapture(temp_input_path)                # 원본 비디오의 capture 생성
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')               # XVID 코덱 사용
+    fps = cap.get(cv2.CAP_PROP_FPS)                        # 원본 비디오의 속도 저장
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))         # 원본 비디오 해상도의 넓이 저장
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))       # 원본 비디오 해상도의 높이 저장 
     out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
+                                                           # YOLO 모델 결과를 기록할 비디오 파일을 준비 
 
     frame_count = 0
     while cap.isOpened():
