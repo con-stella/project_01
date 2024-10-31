@@ -6,12 +6,14 @@ st.set_page_config(layout="wide")
 # 제목 설정
 st.title("비디오 사물 검출 앱")
 
-# 전체 레이아웃을 컨테이너로 감싸기
-with st.container():
-    col1, col2 = st.columns(2)  # 열을 균등하게 분배하여 넓게 표시
+# 파일 업로드 버튼을 상단으로 이동
+uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
 
-    # 파일 업로드
-    uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
+
+# 전체 레이아웃을 컨테이너로 감싸기
+with st.container():                            # with가 없으면 블럭 설정이 어려움. 
+                                                # with절로 하나의 기능을 하는 코드를 묶어줌. (가독성 높이기) 
+    col1, col2 = st.columns(2)  # 열을 균등하게 분배하여 넓게 표시
 
     with col1:
         st.header("원본 영상")
@@ -22,13 +24,25 @@ with st.container():
 
     with col2:
         st.header("사물 검출 결과 영상")
-        if "processed_video" in st.session_state:
-            st.video(st.session_state["processed_video"])
+        
+        # 사물 검출 결과가 나타날 자리 확보 및 고정 높이 회색 박스 스타일 추가
+        result_placeholder = st.empty()
+        if "processed_video" in st.session_state and st.session_state["processed_video"] is not None:  # 사물 검출 완료된 비디오가 있으면
+            result_placeholder.video(st.session_state["processed_video"])                              # 그 비디오를 플레이 해라
         else:
-            st.write("여기에 사물 검출 결과가 표시됩니다.")
+            result_placeholder.markdown(
+                """
+                <div style='width:100%; height:620px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
+                    <p style='color:#888;'>여기에 사물 검출 결과가 표시됩니다.</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+
 
 # 사물 검출 버튼 추가
-if st.button("사물 검출 실행"):
+if st.button("사물 검출 실행"):                                    # 이 버튼을 누르면 
     if uploaded_file is not None:
         st.session_state["processed_video"] = uploaded_file
         st.success("사물 검출이 완료되어 오른쪽에 표시됩니다.")
