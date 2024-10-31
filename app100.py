@@ -110,7 +110,7 @@ if st.button("사물 검출 실행") and uploaded_file and model_file:
 
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
+            st.write(f"Frame {frame_count}: {len(detections)} detections")
         else:
             # 검출 결과가 없을 때도 원본 프레임을 저장
             st.write(f"Frame {frame_count}: No detections - Original frame saved")
