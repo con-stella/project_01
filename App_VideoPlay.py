@@ -24,7 +24,7 @@ if model_file:
 # # 모델 파일 업로드
 # if "model_file" not in st.session_state:
 #     st.session_state["model_file"] = None
-
+   
 # model_file = st.file_uploader("모델 파일을 업로드하세요", type=["pt"])
 # if model_file:
 #     st.session_state["model_file"] = model_file  # 상태 저장
